@@ -1,5 +1,5 @@
 from datetime import timezone
-
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -8,7 +8,7 @@ class Post(models.Model):
         ('d', 'draft'),
         ('p', 'publish')
     )
-
+    other = models.ForeignKey(User, on_delete=models.CASCADE) # many to one
     title = models.CharField(max_length=20)
     body = models.TextField()
     img = models.ImageField(upload_to='images/blog/post')
