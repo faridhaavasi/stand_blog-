@@ -35,5 +35,6 @@ def register(request):
             return render(request, 'account/register.html', context)
         user = User.objects.create(username=username, password=password1)
         login(request, user)
+        return redirect('/')
 
     return render(request, 'account/register.html', {})
