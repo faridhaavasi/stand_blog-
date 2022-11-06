@@ -3,5 +3,5 @@ from .models import Post
 # Create your views here.
 
 def detail(request, pk):
-    
-    return render(request, 'blog/detail.html', {})
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'blog/detail.html', {'post': post})
