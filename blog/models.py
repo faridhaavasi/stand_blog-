@@ -26,4 +26,4 @@ class Post(models.Model):
     status = models.CharField(max_length=1, default='d', choices=STATUS_CHOICES, null=False)
 
     def __str__(self):
-        return f'{self.body[30]}'
+        return self.title
