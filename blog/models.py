@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # my managers
+from django.urls import reverse
+
+
 class Post_Manager(models.Manager):
     def published(self):
         return self.filter(status='p')
@@ -35,5 +38,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, default='d', choices=STATUS_CHOICES, null=False)
     objects = Post_Manager()
+    def get_abs_url(self):
+        return reverse('blog:detail', args={self.pk})
     def __str__(self):
         return self.title

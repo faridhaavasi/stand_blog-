@@ -16,7 +16,7 @@
                             <div class="meta-category">
                                 <span>{{ post.category.all }}</span>
                             </div>
-                            <a href="post-details.html"><h4>Morbi dapibus condimentum</h4></a>
+                            <a href="{{ post.get_abs_url }}"><h4>{{ post.title }}</h4></a>
                             <ul class="post-info">
                                 <li><a href="#">{{ post.other }}</a></li>
                                 <li><a href="#">{{ post.created }}</a></li>
