@@ -7,4 +7,5 @@ def detail(request, slug):
     return render(request, 'blog/detail.html', {'post': post})
 
 def all_post(request):
-    return render(request,'blog/all_post.html')
+    posts = Post.objects.all()
+    return render(request, 'blog/all_post.html', {'posts': posts})
