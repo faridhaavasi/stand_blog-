@@ -5,3 +5,6 @@ from .models import Post
 def detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     return render(request, 'blog/detail.html', {'post': post})
+
+def all_post(request):
+    return render(request,'blog/all_post.html')
