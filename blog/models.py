@@ -35,7 +35,7 @@ class Post(models.Model):
     other = models.ForeignKey(User, on_delete=models.CASCADE) # many to one
     title = models.CharField(max_length=20)
     slug = models.SlugField(null=True, blank=True,unique=True)
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, related_name='posts')
     body = models.TextField()
     img = models.ImageField(upload_to='images/blog/post')
     created = models.DateTimeField(auto_now=timezone)
