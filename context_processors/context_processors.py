@@ -7,6 +7,6 @@ def recent_posts(request):
 
 def category_list(request):
 
-    category = Category.objects.activated()
+    categorys = Category.objects.activated()
 
-    return {'category': category}
+    return {'categorys': categorys}
