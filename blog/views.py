@@ -19,3 +19,11 @@ def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
     posts = category.posts.all()  # related name
     return render(request, 'blog/all_post.html', {'posts': posts})
+def serch_post(request):
+    q = request.GET.get('q')
+    posts = Post.objects.filter(title__icontains=q, body__icontains=q)
+    paginator = Paginator(posts, 2)
+    page_number = request.GET.get('page')
+    object_posts = paginator.get_page(page_number)
+    return render(request, 'blog/all_post.html', {'posts': object_posts})
+

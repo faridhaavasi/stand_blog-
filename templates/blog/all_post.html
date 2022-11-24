@@ -84,11 +84,11 @@
 
                                 <ul class="page-numbers">
                                     {% if posts.has_previous %}
-                                        <li><a href="?page={{ posts.previous_page_number }}"><i class="fa fa-angle-double-left"></i></a></li>
+                                        <li><a href="?page={{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-angle-double-left"></i></a></li>
                                     {% endif %}
 
                                     {% if posts.has_next %}
-                                        <li><a href="?page={{ posts.next_page_number }}"><i class="fa fa-angle-double-right"></i></a></li>
+                                        <li><a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-angle-double-right"></i></a></li>
                                     {% endif %}
                                 </ul>
                             </div>
