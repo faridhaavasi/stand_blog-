@@ -27,3 +27,5 @@ def serch_post(request):
     object_posts = paginator.get_page(page_number)
     return render(request, 'blog/all_post.html', {'posts': object_posts})
 
+def contact(request):
+    return render(request, 'blog/contact.html', {})
