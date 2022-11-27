@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Category
+from .models import Post, Category, Ticket
 from django.core.paginator import Paginator
+from .forms import Contactusform
 # Create your views here.
 
 def detail(request, slug):
@@ -28,4 +29,15 @@ def serch_post(request):
     return render(request, 'blog/all_post.html', {'posts': object_posts})
 
 def contact(request):
-    return render(request, 'blog/contact.html', {})
+    form = Contactusform()
+    if request.method == 'POST':
+        form = Contactusform(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data.get('name')
+            email = form.cleaned_data.get('email')
+            subject = form.cleaned_data.get('subject')
+            text = form.cleaned_data.get('text')
+            if name and email and subject and text is not None:
+                Ticket.objects.create(name=name, email=email, subject=subject, text=text)
+
+    return render(request, 'blog/contact.html', {'form': form})
