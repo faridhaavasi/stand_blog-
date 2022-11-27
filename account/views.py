@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 
-from django.contrib.auth import authenticate ,login
+from django.contrib.auth import authenticate ,login, logout
 
 def login_user(request):
     if request.user.is_authenticated:
@@ -14,3 +14,7 @@ def login_user(request):
             login(request, user)
             return redirect('home_app:home')
     return render(request, 'account/login.html', {})
+
+def logout_user(request):
+    logout(request)
+    return redirect('home_app:home')
