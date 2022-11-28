@@ -33,11 +33,11 @@ def contact(request):
     if request.method == 'POST':
         form = Contactusform(request.POST)
         if form.is_valid():
-            name = form.cleaned_data.get('name')
+
             email = form.cleaned_data.get('email')
             subject = form.cleaned_data.get('subject')
             text = form.cleaned_data.get('text')
             if name and email and subject and text is not None:
-                Ticket.objects.create(name=name, email=email, subject=subject, text=text)
+                Ticket.objects.create(email=email, subject=subject, text=text)
 
     return render(request, 'blog/contact.html', {'form': form})

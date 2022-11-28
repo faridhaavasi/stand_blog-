@@ -68,10 +68,10 @@ class Comment(models.Model):
     def __str__(self):
         return self.body[:50]
 class Ticket(models.Model):
-    name = models.ForeignKey(User, on_delete=models.CASCADE)# many to one ==> many ticket to one user
+
     email = models.CharField(max_length=50)
     subject = models.CharField(max_length=20)
     text = models.TextField()
 
     def __Str__(self):
-        return f'ticket from {self.name}'
+        return f'ticket from {self.email}'

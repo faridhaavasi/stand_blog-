@@ -34,17 +34,22 @@
                                         <h2>Send us a message</h2>
                                     </div>
                                     <div class="content">
-                                        <form id="contact" action="" method="post">
-                                            {% csrf_token %}
-                                            <div class="row">
-                                                {{ form.as_p }}
-                                                <button type="submit" id="form-submit" class="main-button">Send
-                                                    Message
-                                                </button>
-                                                </fieldset>
+                                        {% if request.user.is_authenticated %}
+                                            <form id="contact" action="" method="post">
+                                                {% csrf_token %}
+                                                <div class="row">
+                                                    {{ form.as_p }}
+                                                    <button type="submit" id="form-submit" class="main-button">Send
+                                                        Message
+                                                    </button>
+                                                    </fieldset>
+                                                </div>
                                             </div>
-                                    </div>
-                                    </form>
+                                            </form>
+                                        {% else %}
+                                            <h4 class="-pull-right">for see form register </h4>
+                                            <a class="deletelink-box" href="{% url 'account:register' %}">register</a>
+                                        {% endif %}
                                 </div>
                             </div>
                         </div>
