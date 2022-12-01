@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Category, Ticket
 from django.core.paginator import Paginator
 from .forms import Contactusform
@@ -29,15 +29,16 @@ def serch_post(request):
     return render(request, 'blog/all_post.html', {'posts': object_posts})
 
 def contact(request):
-    form = Contactusform()
+
     if request.method == 'POST':
         form = Contactusform(request.POST)
         if form.is_valid():
-
             email = form.cleaned_data.get('email')
             subject = form.cleaned_data.get('subject')
             text = form.cleaned_data.get('text')
-            if name and email and subject and text is not None:
+            if email and subject and text is not None:
                 Ticket.objects.create(email=email, subject=subject, text=text)
-
+                return redirect('home_app:home')
+    else:
+        form = Contactusform()
     return render(request, 'blog/contact.html', {'form': form})
