@@ -1,11 +1,21 @@
 from django import forms
+from .models import Ticket
 from django.core.validators import ValidationError
 # contactus form
 
-class Contactusform(forms.Form):
-    email = forms.EmailField(label='email')
-    subject = forms.CharField(max_length=20, label='subject')
-    text = forms.CharField(max_length=555, label='text')
+class Contactusform(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = '__all__'
+        widgets = {
+            'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter email'}),
+            'subject': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'subject'}),
+            'text': forms.Textarea(attrs={'class': 'form-control'})
+        }
+
+
+
+
 
     def clean(self):
         email = self.cleaned_data.get('email')

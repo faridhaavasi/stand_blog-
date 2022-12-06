@@ -33,36 +33,19 @@
                                     <div class="sidebar-heading">
                                         <h2>Send us a message</h2>
                                     </div>
-                                {% if form.non_field_errors %}
-                                    <div class="alert-danger">{{ form.non_field_errors }}</div>
+                                    {% if form.non_field_errors %}
+                                        <div class="alert-danger">{{ form.non_field_errors }}</div>
 
-                                {% endif %}
+                                    {% endif %}
                                     <div class="content">
                                         {% if request.user.is_authenticated %}
                                             <form id="contact" action="" method="post">
                                                 {% csrf_token %}
                                                 <div class="row">
-                                                    {% if form.email.errors %}
-                                                        <div class="alert-danger">{{ form.email.errors }}</div>
-                                                    {% endif %}
-                                                    {{ form.email.label }}:
-                                                    {{ form.email }}
-                                                    <br>
-                                                    {% if form.subject.errors %}
-                                                        <div class="alert-danger">{{ form.subject.errors }}</div>
-                                                    {% endif %}
-                                                    <br>
-                                                    <div class="title">{{ form.subject.label }}</div>:
-                                                    {{ form.subject }}
-
-                                                    {% if form.text.errors %}
-                                                        <div class="alert-danger">{{ form.text.errors }}</div>
-                                                    {% endif %}
-                                                    <div class="title">{{ form.text.label }}</div>:
-                                                    {{ form.text }}
-                                                    <button type="submit" id="form-submit" class="main-button">Send
+                                                    {{ form }}
+                                                    <button type="submit" id="form-submit" class="main-button" size="1">Send
                                                         Message
-                                                    </button>
+                                                   </button>
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -71,45 +54,6 @@
                                             <h4 class="-pull-right">for see form register </h4>
                                             <a class="deletelink-box" href="{% url 'account:register' %}">register</a>
                                         {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="sidebar-item contact-information">
-                                <div class="sidebar-heading">
-                                    <h2>contact information</h2>
-                                </div>
-                                <div class="content">
-                                    <ul>
-                                        <li>
-                                            <h5>090-484-8080</h5>
-                                            <span>PHONE NUMBER</span>
-                                        </li>
-                                        <li>
-                                            <h5>info@company.com</h5>
-                                            <span>EMAIL ADDRESS</span>
-                                        </li>
-                                        <li>
-                                            <h5>123 Aenean id posuere dui,
-                                                <br>Praesent laoreet 10660</h5>
-                                            <span>STREET ADDRESS</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-12">
-                <div id="map">
-                    <iframe src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                            width="100%" height="450px" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
-            </div>
-
-        </div>
-        </div>
     </section>
 {% endblock %}

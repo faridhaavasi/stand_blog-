@@ -42,3 +42,6 @@ def contact(request):
     else:
         form = Contactusform()
     return render(request, 'blog/contact.html', {'form': form})
+
+def edit_info(request):
+    pass
