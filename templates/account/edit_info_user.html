@@ -1,0 +1,59 @@
+{% extends 'parent/base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-content">
+                            <h4>edit information</h4>
+                            <h2>let’s stay in touch!</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Banner Ends Here -->
+
+
+    <section class="contact-us">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="down-contact">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="sidebar-item contact-form">
+                                    <div class="sidebar-heading">
+                                        <h2>edit information</h2>
+                                    </div>
+                                    {% if form.non_field_errors %}
+                                        <div class="alert-danger">{{ form.non_field_errors }}</div>
+
+                                    {% endif %}
+                                    <div class="content">
+                                        {% if request.user.is_authenticated %}
+                                            <form id="contact" action="" method="post">
+                                                {% csrf_token %}
+                                                <div class="row">
+                                                    {{ form }}
+                                                    <button type="submit" id="form-submit" class="main-button" size="1">
+                                                        save
+                                                    </button>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            </form>
+                                        {% else %}
+                                            <h4 class="-pull-right">for see form register </h4>
+                                            <a class="deletelink-box" href="{% url 'account:register' %}">register</a>
+                                        {% endif %}
+
+    </section>
+{% endblock %}
