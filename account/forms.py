@@ -16,6 +16,7 @@ class loginform(forms.Form):
 
         ))
 
+'''
     def clean_passwoord(self):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
@@ -25,10 +26,18 @@ class loginform(forms.Form):
 
         else:
             raise ValidationError('username or password invalid ')
-
+'''
 
 
 class editform(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email')
+
+class register_form(forms.Form):
+    username = forms.CharField(max_length=20)
+    password1 = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'class': 'wrap-input100'}))
+    password2 = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'class': 'wrap-input100'}))
+
+
+

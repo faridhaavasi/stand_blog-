@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .forms import loginform, editform
-from django.contrib.auth import authenticate ,login, logout
+from .forms import loginform, editform, register_form
+from django.contrib.auth import authenticate, login, logout
+
 
 def login_user(request):
     if request.user.is_authenticated:
@@ -9,33 +10,39 @@ def login_user(request):
     if request.method == 'POST':
         form = loginform(data=request.POST)
         if form.is_valid():
-            user = User.objects.get(username=form.cleaned_data.get('username'))
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(User, username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password'))
 
             login(request, user)
             return redirect('home_app:home')
     else:
         form = loginform()
 
-
     return render(request, 'account/login.html', {'form': form})
+
 
 def logout_user(request):
     logout(request)
     return redirect('home_app:home')
 
+
 def register_user(request):
     if request.user.is_authenticated:
         return redirect('home_app:home')
+    form = register_form()
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-        user = User.objects.create(username=username, password=password1)
-        if username and password1:
+        form = register_form(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password1 = form.cleaned_data.get('password1')
+            password2 = form.cleaned_data.get('password2')
+
+            user = User.objects.create(username=username, password=password1)
             login(request, user)
             return redirect('home_app:home')
 
-    return render(request, 'account/register.html')
+    return render(request, 'account/register.html', {'form': form})
 
 
 def edit_user(request):
