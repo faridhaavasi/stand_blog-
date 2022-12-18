@@ -31,7 +31,7 @@
                             <div class="col-lg-8">
                                 <div class="sidebar-item contact-form">
                                     <div class="sidebar-heading">
-                                        <h2>edit information</h2>
+                                        <h2>edit information </h2>
                                     </div>
                                     {% if form.non_field_errors %}
                                         <div class="alert-danger">{{ form.non_field_errors }}</div>
@@ -43,8 +43,10 @@
                                                 {% csrf_token %}
                                                 <div class="row">
                                                     {{ form }}
+
                                                     <button type="submit" id="form-submit" class="main-button" size="1">
-                                                        save
+                                                        edit
+
                                                     </button>
                                                     </fieldset>
                                                 </div>
@@ -54,6 +56,7 @@
                                             <h4 class="-pull-right">for see form register </h4>
                                             <a class="deletelink-box" href="{% url 'account:register' %}">register</a>
                                         {% endif %}
+                                    <a href="{% url 'account:delete' object.id %}" class="badge-danger">delete user</a>
 
     </section>
 {% endblock %}

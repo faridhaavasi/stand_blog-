@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from .forms import loginform, editform, register_form
 from django.contrib.auth import authenticate, login, logout
-
+from django.views.generic import UpdateView, DeleteView
 
 def login_user(request):
     if request.user.is_authenticated:
@@ -45,6 +46,7 @@ def register_user(request):
     return render(request, 'account/register.html', {'form': form})
 
 
+'''
 def edit_user(request):
     user = request.user
     form = editform(instance=user)
@@ -53,3 +55,15 @@ def edit_user(request):
         if form.is_valid():
             form.save()
     return render(request, 'account/edit_info_user.html', {'form': form})
+'''
+
+class Edit_information(UpdateView):
+    model = User
+    fields = ('first_name', 'last_name', 'email')
+    template_name = 'account/edit_info_user.html'
+    success_url = reverse_lazy('home_app:home')
+
+class Delete_User(DeleteView):
+    model = User
+    success_url = reverse_lazy('home_app:home')
+

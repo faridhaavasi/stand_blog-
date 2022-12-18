@@ -71,7 +71,7 @@ class Ticket(models.Model):
 
     email = models.CharField(max_length=50)
     subject = models.CharField(max_length=20)
-    text = models.TextField()
+    text = models.TextField(null=True, blank=True)
 
     def __Str__(self):
         return f'ticket from {self.email}'

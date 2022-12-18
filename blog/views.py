@@ -1,20 +1,24 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from .models import Post, Category, Ticket
 from django.core.paginator import Paginator
 from .forms import Contactusform
+from django.views.generic import ListView, DetailView, FormView
 # Create your views here.
 
+'''
 def detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     return render(request, 'blog/detail.html', {'post': post})
-
+'''
+'''
 def all_post(request):
     posts = Post.objects.all()
     paginator = Paginator(posts, 2)
     page_number = request.GET.get('page')
     object_posts = paginator.get_page(page_number)
     return render(request, 'blog/all_post.html', {'posts': object_posts})
-
+'''
 
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
@@ -28,6 +32,8 @@ def serch_post(request):
     object_posts = paginator.get_page(page_number)
     return render(request, 'blog/all_post.html', {'posts': object_posts})
 
+
+'''
 def contact(request):
 
     if request.method == 'POST':
@@ -42,6 +48,26 @@ def contact(request):
     else:
         form = Contactusform()
     return render(request, 'blog/contact.html', {'form': form})
+'''
+class All_Post(ListView):
+    model = Post
+    queryset = Post.objects.published()
+    template_name = 'blog/all_post.html'
+    paginate_by = 2
 
-def edit_info(request):
-    pass
+class Dwtail_Post_View(DetailView):
+    model = Post
+    template_name = 'blog/detail.html'
+    context_object_name = 'post'
+
+
+class Cuntact_us_View(FormView):
+    template_name = 'blog/contact.html'
+    form_class = Contactusform
+    success_url = reverse_lazy('home_app:home')
+
+    def form_valid(self, form):
+        form_data = form.cleaned_data
+        Ticket.objects.create(**form_data)
+        return super().form_valid(form)
+
