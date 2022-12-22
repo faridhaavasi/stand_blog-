@@ -72,8 +72,11 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <ul class="post-tags">
-                                                        <li><a href=""><i class="fa fa-heart-o"></i></a></li>
-
+                                                       {% if post.is_like %}
+                                                         <li><a href="{% url 'blog:like' object.slug object.id %}"><i class="fa fa-heart"></i></a>{{ post.like.count }}</li>
+                                                       {% else %}
+                                                         <li><a href="{% url 'blog:like' object.slug object.id %}"><i class="fa fa-heart-o"></i></a>{{ post.like.count }}</li>
+                                                       {% endif %}
                                                     </ul>
                                                 </div>
                                                 <div class="col-6">

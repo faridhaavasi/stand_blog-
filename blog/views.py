@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from .models import Post, Category, Ticket
+from .models import Post, Category, Ticket, Like
 from .mixins import Login_required_Mixin
 from django.core.paginator import Paginator
 from .forms import Contactusform
@@ -56,11 +56,17 @@ class All_Post(Login_required_Mixin, ListView):
     template_name = 'blog/all_post.html'
     paginate_by = 2
 
-class Dwtail_Post_View(DetailView):
+class Detail_Post_View(DetailView):
     model = Post
     template_name = 'blog/detail.html'
     context_object_name = 'post'
-
+    def get_context_data(self, **kwargs):
+        if self.request.user.is_authenticated:
+            context = super().get_context_data(**kwargs)
+            if self.request.user.like.filter(post_id=self.object.pk, user_id=self.request.user.id).exists():
+                context['is_like'] = True
+            else:
+                context['is_like'] = False
 
 class Cuntact_us_View(FormView):
     template_name = 'blog/contact.html'
@@ -72,3 +78,10 @@ class Cuntact_us_View(FormView):
         Ticket.objects.create(**form_data)
         return super().form_valid(form)
 
+def like_post(request, slug, pk):
+    try:
+        like = Like.objects.get(post__slug=slug, user_id=request.user.id)
+        like.delete()
+    except:
+        Like.objects.create(post_id=pk, user_id=request.user.id)
+    return redirect('blog:detail', slug)
