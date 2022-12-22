@@ -95,3 +95,4 @@ class Ticket(models.Model):
     class Meta:
         verbose_name = 'تیکت'
         verbose_name_plural = 'تیکت ها'
+

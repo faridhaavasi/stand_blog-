@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from .models import Post, Category, Ticket
-from .mixins import Login_required_Mixin
+from .mixins import cast_Login_required_Mixin
 from django.core.paginator import Paginator
 from .forms import Contactusform
 from django.views.generic import ListView, DetailView, FormView
@@ -50,17 +50,16 @@ def contact(request):
         form = Contactusform()
     return render(request, 'blog/contact.html', {'form': form})
 '''
-class All_Post(Login_required_Mixin, ListView):
+class All_Post(cast_Login_required_Mixin,ListView):
     model = Post
     queryset = Post.objects.published()
     template_name = 'blog/all_post.html'
     paginate_by = 2
 
-class Dwtail_Post_View(DetailView):
+class Detail_Post_View(DetailView):
     model = Post
     template_name = 'blog/detail.html'
     context_object_name = 'post'
-
 
 class Cuntact_us_View(FormView):
     template_name = 'blog/contact.html'
@@ -71,4 +70,3 @@ class Cuntact_us_View(FormView):
         form_data = form.cleaned_data
         Ticket.objects.create(**form_data)
         return super().form_valid(form)
-
