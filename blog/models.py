@@ -95,3 +95,15 @@ class Ticket(models.Model):
     class Meta:
         verbose_name = 'تیکت'
         verbose_name_plural = 'تیکت ها'
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='like', verbose_name='کاربر')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='like', verbose_name='پست مربوطه')
+    created_at = models.DateTimeField(auto_now=True, verbose_name='زمان')
+
+    def __abs__(self):
+        return self.user
+    class Meta:
+        verbose_name = 'لایک'
+        verbose_name_plural = 'لایک ها'
+
