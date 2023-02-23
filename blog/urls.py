@@ -9,5 +9,6 @@ urlpatterns = [
      path('serch/', views.serch_post, name='serch'),
      path('contact_us/', views.Cuntact_us_View.as_view(), name='contact_us'),
      path('<slug:slug>/<int:pk>', views.like_post, name='like'),
+     path('listpostApi', views.ListPost_Api.as_view(), name='listpostApi'),
  ]
 

@@ -5,6 +5,9 @@ from .mixins import Login_required_Mixin
 from django.core.paginator import Paginator
 from .forms import Contactusform
 from django.views.generic import ListView, DetailView, FormView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import listpost_serializer
 # Create your views here.
 
 '''
@@ -85,3 +88,9 @@ def like_post(request, slug, pk):
     except:
         Like.objects.create(post_id=pk, user_id=request.user.id)
     return redirect('blog:detail', slug)
+
+class ListPost_Api(APIView):
+    def get(self, request):
+        queryset = Post.objects.filter(status='p')
+        listpost_ser = listpost_serializer(instance=queryset, many=True)
+        return Response(data=listpost_ser.data)
