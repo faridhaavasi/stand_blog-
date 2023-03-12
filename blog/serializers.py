@@ -26,4 +26,5 @@ class addedserializer(serializers.ModelSerializer):
 
 class update_serializer(serializers.ModelSerializer):
     class Meta:
+        model = Post
         fields = ['title', 'body', 'status']
