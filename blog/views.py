@@ -116,3 +116,8 @@ class update_Api_view(APIView):
             serializer.save()
             return Response({'massage': 'updated'})
         return Response(serializer.errors)
+class delete_post_api(APIView):
+    def delete(self, request, pk):
+        instance = Post.objects.get(id=pk)
+        instance.delete()
+        return Response({'massage': 'deleted'})

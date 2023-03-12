@@ -13,5 +13,6 @@ urlpatterns = [
      path('detailpostApi/<int:pk>', views.detailpost_Api.as_view(), name='detailpostApi'),
      path('add', views.addpostApi.as_view()),
      path('update/<int:pk>', views.update_Api_view.as_view(), name='update'),
+     path('deleted/<int:pk>', views.detailpost_Api.as_view(), name='deleted')
  ]
 
