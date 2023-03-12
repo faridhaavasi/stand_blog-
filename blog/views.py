@@ -7,7 +7,7 @@ from .forms import Contactusform
 from django.views.generic import ListView, DetailView, FormView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import listpost_serializer
+from .serializers import listpost_serializer, detailpost_serializer, addedserializer, update_serializer
 # Create your views here.
 
 '''
@@ -80,7 +80,7 @@ class Cuntact_us_View(FormView):
         form_data = form.cleaned_data
         Ticket.objects.create(**form_data)
         return super().form_valid(form)
-
+'''
 def like_post(request, slug, pk):
     try:
         like = Like.objects.get(post__slug=slug, user_id=request.user.id)
@@ -88,9 +88,31 @@ def like_post(request, slug, pk):
     except:
         Like.objects.create(post_id=pk, user_id=request.user.id)
     return redirect('blog:detail', slug)
-
+'''
 class ListPost_Api(APIView):
     def get(self, request):
         queryset = Post.objects.filter(status='p')
         listpost_ser = listpost_serializer(instance=queryset, many=True)
         return Response(data=listpost_ser.data)
+
+
+class detailpost_Api(APIView):
+    def get(self, request, pk):
+        obj = Post.objects.get(id=pk)
+        detailpost_ser = detailpost_serializer(instance=obj)
+        return Response(data=detailpost_ser.data)
+class addpostApi(APIView):
+    def post(self, request):
+        serializer = addedserializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'massage': 'ok'})
+        return Response(serializer.errors)
+class update_Api_view(APIView):
+    def put(self, request, pk):
+        instance = Post.objects.get(pk=pk)
+        serializer = update_serializer(instance=instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'massage': 'updated'})
+        return Response(serializer.errors)

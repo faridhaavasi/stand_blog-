@@ -39,7 +39,7 @@ class Post(models.Model):
     slug = models.SlugField(null=True, blank=True,unique=True)
     category = models.ManyToManyField(Category, related_name='posts', verbose_name='دسته بندی')
     body = models.TextField(verbose_name='متن')
-    img = models.ImageField(upload_to='images/blog/post', verbose_name='تصویر')
+    img = models.ImageField(upload_to='images/blog/post',blank=True, null=True, verbose_name='تصویر')
     created = models.DateTimeField(auto_now=timezone, verbose_name='ساخته شده ذز تاریخ')
     updated = models.DateTimeField(auto_now_add=True, verbose_name='بروز رسانی')
     status = models.CharField(max_length=1, default='d', choices=STATUS_CHOICES, null=False, verbose_name='وضعیت')
